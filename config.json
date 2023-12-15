@@ -1,0 +1,7 @@
+{
+  "https": true,
+  "helper_printer_name": "If Printer is default use no name in printer_name",
+  "printer_name": "",
+  "debug": true,
+  "print_dir": "temp-files"
+}
