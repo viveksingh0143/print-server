@@ -21,6 +21,7 @@ type Config struct {
 	PrinterName string `json:"printer_name"`
 	Debug       bool   `json:"debug"`
 	PrintDir    string `json:"print_dir"`
+	Port        uint   `json:"port"`
 }
 
 // Global variable for the configuration
@@ -35,7 +36,13 @@ func debugLog(message string) {
 
 // Reads the configuration from a file
 func readConfig(filePath string) (Config, error) {
-	var conf Config
+	var conf Config = Config{
+		RunOnHttps:  false,
+		PrinterName: "",
+		Debug:       false,
+		PrintDir:    "temp-files",
+		Port:        49155,
+	}
 	file, err := os.ReadFile(filePath)
 	if err != nil {
 		return conf, err
@@ -177,6 +184,18 @@ func main() {
 	}
 
 	debugLog("Starting server...")
+	log.Println("-------------------------------------------------------------")
+	log.Println(fmt.Sprintf("Runs on HTTPS: %v", config.RunOnHttps))
+	log.Println(fmt.Sprintf("Runs on Port: %d", config.Port))
+	if config.PrinterName == "" {
+		log.Println(fmt.Sprintf("Print at %s", "Default Printer"))
+	} else {
+		log.Println(fmt.Sprintf("Print at %s", config.PrinterName))
+	}
+	log.Println(fmt.Sprintf("Debug: %v", config.Debug))
+	log.Println(fmt.Sprintf("Print Directory: %s", config.PrintDir))
+	log.Println("-------------------------------------------------------------")
+	log.Println("")
 
 	err = ensureDir(config.PrintDir)
 	if err != nil {
