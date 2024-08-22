@@ -1,7 +1,8 @@
 {
-  "https": true,
+  "https": false,
   "helper_printer_name": "If Printer is default use no name in printer_name",
-  "printer_name": "",
+  "can_printer_name": "Print_to_PDF___Vivekb_9s_MacBook_Air",
+  "printer_name": "Print_to_PDF___Vivekb_9s_MacBook_Air",
   "debug": true,
   "print_dir": "temp-files"
 }

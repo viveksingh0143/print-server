@@ -91,10 +91,10 @@ func printHandler(w http.ResponseWriter, req *http.Request) {
 
 	debugLog("Received print job request.")
 
-	if printCount > 20 {
-		debugLog("Printer exhausted, please restart.")
-		return
-	}
+	//if printCount > 20 {
+	//	debugLog("Printer exhausted, please restart.")
+	//	return
+	//}
 
 	// Read the body (expected to be the raw data of the file to print)
 	data, err := io.ReadAll(req.Body)
@@ -142,7 +142,8 @@ func printHandler(w http.ResponseWriter, req *http.Request) {
 		if config.PrinterName == "" {
 			cmd = exec.Command("print", printJobFileName)
 		} else {
-			cmd = exec.Command("print", "/D:\""+config.PrinterName+"\"", printJobFileName)
+
+			cmd = exec.Command("cmd", "/c", "copy", printJobFileName, config.PrinterName)
 		}
 	} else {
 		if config.PrinterName == "" {
